@@ -2,6 +2,9 @@
 
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
+SIDEKIQ_LOG_FILE="${OPENSHIFT_SIDEKIQ_DIR}log/sidekiq.log"
+SIDEKIQ_CONFIG="${OPENSHIFT_SIDEKIQ_DIR}config/sidekiq.yml"
+
 function sidekiq_is_runnning() {
   sidekiq_pid=$(cat $SIDEKIQ_PID_FILE)
   if ps -p $sidekiq_pid >/dev/null; then
@@ -28,6 +31,7 @@ function use_rails() {
 }
 
 function start() {
+  retval=0
   if ! have_redis; then
     echo "Sidekiq require redis cartridge to be installed:"
     echo
@@ -37,10 +41,10 @@ function start() {
   echo "Starting sidekiq"
   pushd ${OPENSHIFT_REPO_DIR} >/dev/null
   if use_rails; then
-    ruby_context_with_gempath "sidekiq -d -e production -L ${SIDEKIQ_LOG_FILE} -P ${SIDEKIQ_PID_FILE}"
+    ruby_context_with_gempath "sidekiq -d -e production --config ${SIDEKIQ_CONFIG}"
   else
     if [ -f "${OPENSHIFT_REPO_DIR}/workers.rb" ]; then
-      ruby_context_with_gempath "sidekiq -d -e production -L ${SIDEKIQ_LOG_FILE} -P ${SIDEKIQ_PID_FILE} -r workers.rb"
+      ruby_context_with_gempath "sidekiq -d -e production --config ${SIDEKIQ_CONFIG} -r workers.rb"
     else
       echo "Sidekiq: Unable to detect the workers files."
       echo "Sidekiq: If you are under Rails, place you workers in app/workers"
