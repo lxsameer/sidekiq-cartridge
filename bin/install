@@ -11,7 +11,7 @@ fi
 
 source ${OPENSHIFT_RUBY_DIR}lib/ruby_context
 
-ruby_context "gem install sidekiq --no-ri --no-doc --version=${SIDEKIQ_VERSION}"
+ruby_context "gem install sidekiq --no-ri --no-rdoc --version=${SIDEKIQ_VERSION}"
 
 mkdir -p ${OPENSHIFT_SIDEKIQ_DIR}log
 mkdir -p ${OPENSHIFT_SIDEKIQ_DIR}run
