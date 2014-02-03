@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
+source ${OPENSHIFT_RUBY_DIR}/lib/ruby_context
 
 SIDEKIQ_LOG_FILE="${OPENSHIFT_SIDEKIQ_DIR}log/sidekiq.log"
 SIDEKIQ_CONFIG="${OPENSHIFT_SIDEKIQ_DIR}config/sidekiq.yml"
