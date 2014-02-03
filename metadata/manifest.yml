@@ -1,0 +1,28 @@
+---
+Name: sidekiq
+Cartridge-Short-Name: SIDEKIQ
+Display-Name: Sidekiq 2.17.3
+Description: Simple, efficient background processing for Ruby.
+Version: '2.17.3'
+Versions:
+- '2.17.3'
+Cartridge-Version: 0.0.1
+Cartridge-Vendor: mfojtik
+License: GPL
+Vendor: mfojtik
+Categories:
+- service
+- embedded
+Website: http://mperham.github.io/sidekiq
+Provides:
+- sidekiq-2.17.3
+- sidekiq
+Scaling:
+  Min: 1
+  Max: -1
+Group-Overrides:
+- components:
+  - sidekiq
+  - web_framework
+
+Source-Url: https://github.com/mfojtik/openshift-origin-cartridge-sidekiq.git

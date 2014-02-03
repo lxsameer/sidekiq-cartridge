@@ -1,0 +1,16 @@
+#!/bin/bash -e
+
+SIDEKIQ_VERSION="2.17.3"
+
+if [ -z "${OPENSHIFT_RUBY_DIR}" ]; then
+  client_result ""
+  client_result "ERROR: The sidekiq cartridge is designated to work with 'ruby' applications only."
+  client_result ""
+  exit 1
+fi
+
+source ${OPENSHIFT_RUBY_DIR}lib/ruby_context
+
+ruby_context "gem install sidekiq --no-ri --no-doc --version=${SIDEKIQ_VERSION}"
+
+client_result "Sidekiq ${SIDEKIQ_VERSION} successfully installed!"

@@ -1,0 +1,96 @@
+#!/bin/bash
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+function sidekiq_is_runnning() {
+  sidekiq_pid=$(cat $SIDEKIQ_PID_FILE)
+  if ps -p $sidekiq_pid >/dev/null; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+function gem_path() {
+  ruby_context 'ruby -r rubygems -e "print Gem.path.join(\":\")"'
+}
+
+function ruby_context_with_gempath() {
+  ruby_context "GEM_PATH=${OPENSHIFT_REPO_DIR}vendor/ruby:$(gem_path) $@"
+}
+
+function have_redis() {
+  [ -n "${OPENSHIFT_REDIS_DIR}" ]
+}
+
+function use_rails() {
+  [ -d "${OPENSHIFT_REPO_DIR}app/workers" -a "$(ls -A ${OPENSHIFT_REPO_DIR}app/workers)" ]
+}
+
+function start() {
+  if ! have_redis; then
+    echo "Sidekiq require redis cartridge to be installed:"
+    echo
+    echo "rhc add-cartridge http://cartreflect-claytondev.rhcloud.com/reflect?github=smarterclayton/openshift-redis-cart"
+    exit 1
+  fi
+  echo "Starting sidekiq"
+  pushd ${OPENSHIFT_REPO_DIR} >/dev/null
+  if use_rails; then
+    ruby_context_with_gempath "sidekiq -d -e production -L ${SIDEKIQ_LOG_FILE} -P ${SIDEKIQ_PID_FILE}"
+  else
+    if [ -f "${OPENSHIFT_REPO_DIR}/workers.rb" ]; then
+      ruby_context_with_gempath "sidekiq -d -e production -L ${SIDEKIQ_LOG_FILE} -P ${SIDEKIQ_PID_FILE} -r workers.rb"
+    else
+      echo "Sidekiq: Unable to detect the workers files."
+      echo "Sidekiq: If you are under Rails, place you workers in app/workers"
+      echo "Sidekiq: If you are not using Rails, require your workers in workers.rb"
+      retval=1
+    fi
+  fi
+  retval=$?
+  popd >/dev/null
+  return $retval
+}
+
+function stop() {
+  sidekiq_pid=$(cat $SIDEKIQ_PID_FILE)
+  if sidekiq_is_runnning -a -n "$sidekiq_pid"; then
+    echo "Stopping sidekiq"
+    kill -15 "$sidekiq_pid"
+    if sidekiq_is_runnning; then
+      sleep 3 && kill -9 "$sidekiq_pid"
+    fi
+  else
+    echo "Sidekiq is not running."
+    rm -f ${SIDEKIQ_PID_FILE}
+  fi
+}
+
+function restart() {
+    stop
+    start
+}
+
+function status() {
+  return 0
+}
+
+function reload() {
+  restart
+}
+
+function tidy() {
+  echo "Nothing to clean."
+}
+
+case "$1" in
+  start) start ;;
+  stop) stop ;;
+  restart) restart ;;
+  status) status ;;
+  reload) reload ;;
+  tidy) tidy ;;
+  *) exit 0
+esac
+
