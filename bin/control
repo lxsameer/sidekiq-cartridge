@@ -27,7 +27,7 @@ function have_redis() {
 }
 
 function use_rails() {
-  [ -d "${OPENSHIFT_REPO_DIR}app/workers" -a "$(ls -A ${OPENSHIFT_REPO_DIR}app/workers)" ]
+  [ -d "${OPENSHIFT_REPO_DIR}app/workers" -a "$(ls -A ${OPENSHIFT_REPO_DIR}app/workers 2>/dev/null)" ]
 }
 
 function start() {
