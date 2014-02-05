@@ -47,6 +47,7 @@ function stop() {
     echo "Sidekiq is not running."
     rm -f ${SIDEKIQ_PID_FILE}
   fi
+  return 0
 }
 
 function restart() {
