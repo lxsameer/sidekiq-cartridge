@@ -23,7 +23,7 @@ function start() {
     ruby_context_with_gempath "sidekiq -d -e production --config ${SIDEKIQ_CONFIG}"
   else
     if use_workers; then
-      ruby_context_with_gempath "sidekiq -d -e production --config ${SIDEKIQ_CONFIG} -r workers.rb"
+      ruby_context_with_gempath "sidekiq -d -e production --config ${SIDEKIQ_CONFIG} -r ./workers.rb"
     else
       echo "ERROR: No Sidekiq workers detected."
     fi
