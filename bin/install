@@ -38,3 +38,9 @@ OPENSHIFT_SIDEKIQ_PASSWORD=$(openssl rand -base64 5)
 echo $OPENSHIFT_SIDEKIQ_PASSWORD >${OPENSHIFT_SIDEKIQ_DIR}env/OPENSHIFT_SIDEKIQ_PASSWORD
 client_result "Sidekiq Monitoring web interface URL: https://admin:${OPENSHIFT_SIDEKIQ_PASSWORD}@${OPENSHIFT_APP_DNS}/sidekiq"
 client_result
+
+# Restart the Ruby application to pick up REDIS_URL
+pushd ${OPENSHIFT_RUBY_DIR} >/dev/null
+./bin/control stop
+./bin/control start
+popd >/dev/null
