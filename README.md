@@ -10,7 +10,7 @@ whether it is Rails or other Rack compatible app.
 
 This cartridge also provide Sidekiq [monitoring web interface](https://github.com/mperham/sidekiq/wiki/Monitoring)
 
-![monitoring][https://raw2.github.com/mfojtik/openshift-origin-cartridge-sidekiq/master/doc/sidekiq.png]
+![monitoring](https://raw2.github.com/mfojtik/openshift-origin-cartridge-sidekiq/master/doc/sidekiq.png "Logo Title Text 1")
 
 ## Installation
 
