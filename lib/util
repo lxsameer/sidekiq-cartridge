@@ -2,7 +2,7 @@
 
 function sidekiq_is_runnning() {
   sidekiq_pid=$(cat $SIDEKIQ_PID_FILE 2>/dev/null)
-  [ -n "${sidekiq_pid}" ] && return 0
+  [ -z "${sidekiq_pid}" ] && return 0
   if ps -p $sidekiq_pid 2>&1 >/dev/null; then
     return 0
   else
