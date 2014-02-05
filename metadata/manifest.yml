@@ -20,6 +20,10 @@ Provides:
 Scaling:
   Min: 1
   Max: -1
+Group-Overrides:
+- components:
+  - sidekiq
+  - web_framework
 Endpoints:
 - Private-IP-Name: MONITOR_IP
   Private-Port-Name: MONITOR_PORT
