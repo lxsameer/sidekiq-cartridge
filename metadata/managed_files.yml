@@ -16,3 +16,4 @@ locked_files:
 - templates/*
 processed_templates:
 - config/*.erb
+- env/*.erb
