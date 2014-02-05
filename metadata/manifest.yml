@@ -20,10 +20,6 @@ Provides:
 Scaling:
   Min: 1
   Max: -1
-Group-Overrides:
-- components:
-  - sidekiq
-  - web_framework
 Endpoints:
 - Private-IP-Name: MONITOR_IP
   Private-Port-Name: MONITOR_PORT
@@ -33,5 +29,7 @@ Endpoints:
   - http
   Mappings:
   - Frontend: '/sidekiq'
-  - Backend: '/sidekiq'
+    Backend: '/sidekiq'
+    Options: { 'websocket' => true, 'tohttps' => true }
+
 Source-Url: https://github.com/mfojtik/openshift-origin-cartridge-sidekiq.git
