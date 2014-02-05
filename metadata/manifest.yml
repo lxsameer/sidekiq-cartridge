@@ -30,5 +30,5 @@ Endpoints:
   Mappings:
   - Frontend: "/sidekiq"
     Backend: "/sidekiq"
-    Options: { "websocket": true, "tohttps": true }
+
 Source-Url: https://github.com/mfojtik/openshift-origin-cartridge-sidekiq.git
