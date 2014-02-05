@@ -10,6 +10,8 @@ locked_files:
 - metadata/*
 - lib
 - lib/*
+- lib/monitoring
+- lib/monitoring/*
 - hooks/
 - hooks/*
 - templates

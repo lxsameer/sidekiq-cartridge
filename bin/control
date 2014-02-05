@@ -21,6 +21,7 @@ function start() {
   pushd ${OPENSHIFT_REPO_DIR} >/dev/null
   if use_rails; then
     ruby_context_with_gempath "sidekiq -d -e production --config ${SIDEKIQ_CONFIG}"
+    sidekiq_monitoring start
   else
     if use_workers; then
       ruby_context_with_gempath "sidekiq -d -e production --config ${SIDEKIQ_CONFIG} -r ./workers.rb"
@@ -41,6 +42,7 @@ function stop() {
     if sidekiq_is_runnning; then
       sleep 3 && kill -9 "$sidekiq_pid" 2>/dev/null
     fi
+    sidekiq_monitoring stop
   else
     echo "Sidekiq is not running."
     rm -f ${SIDEKIQ_PID_FILE}

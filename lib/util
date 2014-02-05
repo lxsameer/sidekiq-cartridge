@@ -29,3 +29,23 @@ function use_rails() {
 function use_workers() {
   [ -f "${OPENSHIFT_REPO_DIR}workers.rb" ]
 }
+
+function sidekiq_monitoring() {
+  local action=$1
+
+  monitor_pid_file="${OPENSHIFT_SIDEKIQ_DIR}run/monitor.pid"
+  monitor_bind="--host ${OPENSHIFT_SIDEKIQ_MONITOR_IP} --port ${OPENSHIFT_SIDEKIQ_MONITOR_PORT}"
+
+  pushd ${OPENSHIFT_SIDEKIQ_DIR}lib/monitoring >/dev/null
+
+  if [ "${action}" == "start" ]; then
+    ruby_context_with_gempath "rackup ${monitor_bind} -E production -P ${monitor_pid_file} 2>&1 >${OPENSHIFT_SIDEKIQ_DIR}log/monitor.log &"
+  fi
+
+  if [ "${action}" == "stop" ]; then
+    monitor_pid=$(cat $monitor_pid_file 2>/dev/null)
+    [ ! -z "${monitor_pid}" ] && kill -15 "$monitor_pid"
+  fi
+
+  popd >/dev/null
+}

@@ -32,3 +32,9 @@ client_result "sidekiq-${SIDEKIQ_VERSION} installed successfully!"
 client_result
 client_result "You can place your workers in 'app/workers' directory if using Rails."
 client_result "For other frameworks, create 'workers.rb' file and require workers there."
+client_result
+
+OPENSHIFT_SIDEKIQ_PASSWORD=$(openssl rand -base64 5)
+echo $OPENSHIFT_SIDEKIQ_PASSWORD >${OPENSHIFT_SIDEKIQ_DIR}env/OPENSHIFT_SIDEKIQ_PASSWORD
+client_result "Sidekiq Monitoring web interface URL: https://admin:${OPENSHIFT_SIDEKIQ_PASSWORD}@${OPENSHIFT_APP_DNS}/sidekiq"
+client_result

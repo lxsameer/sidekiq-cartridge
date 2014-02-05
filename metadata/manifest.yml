@@ -24,5 +24,14 @@ Group-Overrides:
 - components:
   - sidekiq
   - web_framework
-
+Endpoints:
+- Private-IP-Name: MONITOR_IP
+  Private-Port-Name: MONITOR_PORT
+  Private-Port: 8666
+  Public-Port-Name: MONITOR_PROXY_PORT
+  Protocols:
+  - http
+  Mappings:
+  - Frontend: '/sidekiq'
+    Backend: '/'
 Source-Url: https://github.com/mfojtik/openshift-origin-cartridge-sidekiq.git
