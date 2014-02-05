@@ -25,6 +25,7 @@ function start() {
   else
     if use_workers; then
       ruby_context_with_gempath "sidekiq -d -e production --config ${SIDEKIQ_CONFIG} -r ./workers.rb"
+      sidekiq_monitoring start
     else
       echo "ERROR: No Sidekiq workers detected."
     fi
