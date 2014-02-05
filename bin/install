@@ -12,6 +12,7 @@ if [ -z "${OPENSHIFT_RUBY_DIR}" ]; then
 fi
 
 source ${OPENSHIFT_RUBY_DIR}lib/ruby_context
+source ${OPENSHIFT_SIDEKIQ_DIR}lib/util
 
 ruby_context "gem install sidekiq --no-ri --no-rdoc --version=${SIDEKIQ_VERSION}"
 
@@ -19,4 +20,24 @@ mkdir -p ${OPENSHIFT_SIDEKIQ_DIR}log
 mkdir -p ${OPENSHIFT_SIDEKIQ_DIR}run
 mkdir -p ${OPENSHIFT_SIDEKIQ_DIR}config
 
+client_result
 client_result "Sidekiq ${SIDEKIQ_VERSION} successfully installed!"
+client_result
+
+if ! have_redis; then
+  client_result
+  client_result "NOTE: Sidekiq require Redis. You can install redis cartridge using:"
+  client_result "      $ rhc add-cartridge http://cartreflect-claytondev.rhcloud.com/reflect?github=smarterclayton/openshift-redis-cart"
+  client_result
+fi
+
+if use_rails; then
+  client_result "Sidekiq will use workers in app/workers directory in application repository."
+  exit 0
+fi
+
+if use_workers; then
+  client_result "Sidekiq will use 'workers.rb' file to load workers."
+else
+  client_result "WARNING: You need to place workers to app/workers or require workers in 'workers.rb' file"
+fi

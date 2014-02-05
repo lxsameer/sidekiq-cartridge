@@ -1,0 +1,30 @@
+#!/bin/bash
+
+function sidekiq_is_runnning() {
+  sidekiq_pid=$(cat $SIDEKIQ_PID_FILE)
+  if ps -p $sidekiq_pid >/dev/null; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+function gem_path() {
+  ruby_context 'ruby -r rubygems -e "print Gem.path.join(\":\")"'
+}
+
+function ruby_context_with_gempath() {
+  ruby_context "GEM_PATH=${OPENSHIFT_REPO_DIR}vendor/ruby:$(gem_path) $@"
+}
+
+function have_redis() {
+  [ -n "${OPENSHIFT_REDIS_DIR}" ]
+}
+
+function use_rails() {
+  [ -d "${OPENSHIFT_REPO_DIR}app/workers" -a "$(ls -A ${OPENSHIFT_REPO_DIR}app/workers 2>/dev/null)" ]
+}
+
+function use_workers() {
+  [ -f "${OPENSHIFT_REPO_DIR}workers.rb" ]
+}
