@@ -9,6 +9,8 @@ SIDEKIQ_LOG_FILE="${OPENSHIFT_SIDEKIQ_DIR}log/sidekiq.log"
 SIDEKIQ_CONFIG="${OPENSHIFT_SIDEKIQ_DIR}config/sidekiq.yml"
 SIDEKIQ_PID_FILE="${OPENSHIFT_SIDEKIQ_DIR}run/sidekiq.pid"
 
+export REDIS_URL="redis://${OPENSHIFT_REDIS_HOST}:${OPENSHIFT_REDIS_PORT}"
+
 function start() {
   retval=0
   if ! have_redis; then
