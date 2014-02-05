@@ -35,4 +35,4 @@ Endpoints:
   - Frontend: "/sidekiq"
     Backend: "/sidekiq"
 
-Source-Url: https://github.com/mfojtik/openshift-origin-cartridge-sidekiq.git
+Source-Url: https://github.com/openshift-cartridges/openshift-origin-cartridge-sidekiq.git
