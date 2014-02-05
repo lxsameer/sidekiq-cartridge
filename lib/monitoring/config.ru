@@ -11,4 +11,4 @@ Sidekiq::Web.use Rack::Auth::Basic do |username, password|
   username == 'admin' && password == ENV['OPENSHIFT_SIDEKIQ_PASSWORD']
 end
 
-run Sidekiq::Web
+run Rack::URLMap.new('/sidekiq' => Sidekiq::Web)

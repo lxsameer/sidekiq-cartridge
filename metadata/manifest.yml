@@ -33,5 +33,5 @@ Endpoints:
   - http
   Mappings:
   - Frontend: '/sidekiq'
-    Backend: '/'
+    Backend: '/sidekiq'
 Source-Url: https://github.com/mfojtik/openshift-origin-cartridge-sidekiq.git
