@@ -37,9 +37,9 @@ function stop() {
   sidekiq_pid=$(cat $SIDEKIQ_PID_FILE 2>/dev/null)
   if [ -n "$sidekiq_pid" -a sidekiq_is_runnning ]; then
     echo "Stopping sidekiq"
-    kill -15 "$sidekiq_pid"
+    kill -15 "$sidekiq_pid" 2>/dev/null
     if sidekiq_is_runnning; then
-      sleep 3 && kill -9 "$sidekiq_pid"
+      sleep 3 && kill -9 "$sidekiq_pid" 2>/dev/null
     fi
   else
     echo "Sidekiq is not running."
