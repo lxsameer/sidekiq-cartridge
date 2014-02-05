@@ -1,7 +1,6 @@
 ---
 :verbose: true
 :strict: false
-:namespace: "<%=ENV['OPENSHIFT_APP_NAME']%>-sidekiq"
 :pidfile: <%=ENV['OPENSHIFT_SIDEKIQ_DIR']%>run/sidekiq.pid
 :logfile: <%=ENV['OPENSHIFT_SIDEKIQ_DIR']%>log/sidekiq.log
 :concurrency: 25
