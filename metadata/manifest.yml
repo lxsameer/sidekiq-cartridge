@@ -1,11 +1,11 @@
 ---
 Name: sidekiq
 Cartridge-Short-Name: SIDEKIQ
-Display-Name: Sidekiq 2.17.3
+Display-Name: Sidekiq 3.2.2
 Description: Simple, efficient background processing for Ruby.
-Version: '2.17.3'
+Version: '3.2.2'
 Versions:
-- '2.17.3'
+- '3.2.2'
 Cartridge-Version: 0.0.3
 Cartridge-Vendor: mfojtik
 License: GPL
@@ -35,4 +35,4 @@ Endpoints:
   - Frontend: "/sidekiq"
     Backend: "/sidekiq"
 
-Source-Url: https://github.com/openshift-cartridges/openshift-origin-cartridge-sidekiq.git
+Source-Url: https://github.com/lxsameer/sidekiq-cartridge
