@@ -25,7 +25,7 @@ rhc add-cartridge http://cartreflect-claytondev.rhcloud.com/reflect?github=smart
 4. Finally, add **Sidekiq** cartridge to your application:
 
 ```
-rhc add-cartridge  --app myapp
+rhc add-cartridge https://raw.githubusercontent.com/lxsameer/sidekiq-cartridge/master/metadata/manifest.yml --app myapp
 ```
 
 Now, everything should be properly configured and you should be able to add your

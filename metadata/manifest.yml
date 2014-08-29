@@ -35,4 +35,4 @@ Endpoints:
   - Frontend: "/sidekiq"
     Backend: "/sidekiq"
 
-Source-Url: https://github.com/lxsameer/sidekiq-cartridge
+Source-Url: https://github.com/lxsameer/sidekiq-cartridge.git
