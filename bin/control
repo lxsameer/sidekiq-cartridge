@@ -20,10 +20,12 @@ function start() {
   echo "Starting sidekiq"
   pushd ${OPENSHIFT_REPO_DIR} >/dev/null
   if use_rails; then
+    client_result "Running in a Rails env."
     ruby_context_with_gempath "sidekiq -d -e production --config ${SIDEKIQ_CONFIG}"
     sidekiq_monitoring start
   else
     if use_workers; then
+      client_result "Running in a Rack env."
       ruby_context_with_gempath "sidekiq -d -e production --config ${SIDEKIQ_CONFIG} -r ./workers.rb"
       sidekiq_monitoring start
     else
@@ -77,4 +79,3 @@ case "$1" in
   tidy) tidy ;;
   *) exit 0
 esac
-
