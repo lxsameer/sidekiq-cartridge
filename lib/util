@@ -23,7 +23,7 @@ function have_redis() {
 }
 
 function use_rails() {
-  [ -d "${OPENSHIFT_REPO_DIR}app/workers" -a "$(ls -A ${OPENSHIFT_REPO_DIR}app/workers 2>/dev/null)" ]
+  [ -d "${OPENSHIFT_REPO_DIR}config/environments" -a "$(ls -A ${OPENSHIFT_REPO_DIR}config/environments 2>/dev/null)" ]
 }
 
 function use_workers() {
