@@ -15,7 +15,7 @@ function gem_path() {
 }
 
 function ruby_context_with_gempath() {
-  ruby_context "GEM_PATH=${OPENSHIFT_REPO_DIR}vendor/ruby:$(gem_path) REDIS_URL=${REDIS_URL} $@"
+  ruby_context "GEM_PATH=${OPENSHIFT_REPO_DIR}vendor/ruby:$(gem_path) REDIS_URL=${REDIS_URL} bundle exec $@"
 }
 
 function have_redis() {
