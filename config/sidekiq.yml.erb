@@ -1,6 +1,6 @@
 ---
 :verbose: true
 :strict: false
-:pidfile: <%=ENV['OPENSHIFT_SIDEKIQ_DIR']%>run/sidekiq.pid
-:logfile: <%=ENV['OPENSHIFT_SIDEKIQ_DIR']%>log/sidekiq.log
+:pidfile: <%=ENV['OPENSHIFT_TMP_DIR']%>run/sidekiq.pid
+:logfile: <%=ENV['OPENSHIFT__LOG_DIR']%>log/sidekiq.log
 :concurrency: 25
