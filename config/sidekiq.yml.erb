@@ -2,5 +2,5 @@
 :verbose: true
 :strict: false
 :pidfile: <%=ENV['OPENSHIFT_TMP_DIR']%>run/sidekiq.pid
-:logfile: <%=ENV['OPENSHIFT__LOG_DIR']%>log/sidekiq.log
+:logfile: <%=ENV['OPENSHIFT_LOG_DIR']%>log/sidekiq.log
 :concurrency: 25
